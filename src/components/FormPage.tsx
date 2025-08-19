@@ -197,14 +197,24 @@ export default function FormPage({ onFormSubmit, onBack }: FormPageProps) {
                   <Briefcase className="w-4 h-4 mr-2 text-primary" />
                   Cargo *
                 </Label>
-                <Input
-                  id="cargo"
-                  type="text"
-                  placeholder="Seu cargo na empresa"
-                  value={formData.cargo}
-                  onChange={(e) => handleInputChange('cargo', e.target.value)}
-                  className={`bg-input border-border focus:border-primary ${errors.cargo ? 'border-destructive' : ''}`}
-                />
+                <Select value={formData.cargo} onValueChange={(value) => handleInputChange('cargo', value)}>
+                  <SelectTrigger className={`bg-input border-border focus:border-primary ${errors.cargo ? 'border-destructive' : ''}`}>
+                    <SelectValue placeholder="Selecione seu cargo" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="CEO / Sócio">CEO / Sócio</SelectItem>
+                    <SelectItem value="CMO">CMO</SelectItem>
+                    <SelectItem value="Diretor / Gestor">Diretor / Gestor</SelectItem>
+                    <SelectItem value="Coordenador / Gerente">Coordenador / Gerente</SelectItem>
+                    <SelectItem value="Gestor de tráfego">Gestor de tráfego</SelectItem>
+                    <SelectItem value="Co-produtor">Co-produtor</SelectItem>
+                    <SelectItem value="Comercial / Inside Sales">Comercial / Inside Sales</SelectItem>
+                    <SelectItem value="Estudante / Estagiário">Estudante / Estagiário</SelectItem>
+                    <SelectItem value="Professor / Pesquisador">Professor / Pesquisador</SelectItem>
+                    <SelectItem value="Analista / Dados / BI">Analista / Dados / BI</SelectItem>
+                    <SelectItem value="Autônomo">Autônomo</SelectItem>
+                  </SelectContent>
+                </Select>
                 {errors.cargo && <p className="text-destructive text-sm mt-1">{errors.cargo}</p>}
               </div>
 
@@ -219,12 +229,11 @@ export default function FormPage({ onFormSubmit, onBack }: FormPageProps) {
                     <SelectValue placeholder="Selecione o tamanho da empresa" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="1-5">1-5 funcionários</SelectItem>
-                    <SelectItem value="6-20">6-20 funcionários</SelectItem>
-                    <SelectItem value="21-50">21-50 funcionários</SelectItem>
-                    <SelectItem value="51-100">51-100 funcionários</SelectItem>
-                    <SelectItem value="101-500">101-500 funcionários</SelectItem>
-                    <SelectItem value="500+">Mais de 500 funcionários</SelectItem>
+                    <SelectItem value="Individual">Individual</SelectItem>
+                    <SelectItem value="2 - 10">2 - 10</SelectItem>
+                    <SelectItem value="11 - 25">11 - 25</SelectItem>
+                    <SelectItem value="26 - 49">26 - 49</SelectItem>
+                    <SelectItem value="Acima de 50">Acima de 50</SelectItem>
                   </SelectContent>
                 </Select>
                 {errors.funcionarios && <p className="text-destructive text-sm mt-1">{errors.funcionarios}</p>}
