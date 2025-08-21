@@ -118,28 +118,6 @@ export const TestimonialsCarousel = () => {
                         {testimonial.role}
                       </p>
                     </div>
-                    {testimonial.video && (
-                      <Dialog>
-                        <DialogTrigger asChild>
-                          <button
-                            className="p-2 bg-primary/10 hover:bg-primary/20 rounded-full transition-colors"
-                            onClick={() => setSelectedVideo(testimonial.videoUrl)}
-                          >
-                            <Play className="w-4 h-4 text-primary" />
-                          </button>
-                        </DialogTrigger>
-                        <DialogContent className="max-w-4xl w-full p-0">
-                          <div className="aspect-video">
-                            <iframe
-                              src={testimonial.videoUrl}
-                              className="w-full h-full rounded-lg"
-                              allowFullScreen
-                              title={`Depoimento de ${testimonial.name}`}
-                            />
-                          </div>
-                        </DialogContent>
-                      </Dialog>
-                    )}
                   </div>
 
                   {/* Stars */}
@@ -150,9 +128,34 @@ export const TestimonialsCarousel = () => {
                   </div>
 
                   {/* Text */}
-                  <p className="text-muted-foreground text-sm leading-relaxed flex-1">
+                  <p className="text-muted-foreground text-sm leading-relaxed flex-1 mb-4">
                     "{testimonial.text}"
                   </p>
+
+                  {/* Watch Testimonial Button */}
+                  {testimonial.video && (
+                    <Dialog>
+                      <DialogTrigger asChild>
+                        <button
+                          className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-primary/10 hover:bg-primary/20 text-primary rounded-lg transition-colors text-sm font-medium"
+                          onClick={() => setSelectedVideo(testimonial.videoUrl)}
+                        >
+                          <Play className="w-4 h-4" />
+                          Assistir Depoimento
+                        </button>
+                      </DialogTrigger>
+                      <DialogContent className="max-w-4xl w-full p-0">
+                        <div className="aspect-video">
+                          <iframe
+                            src={testimonial.videoUrl}
+                            className="w-full h-full rounded-lg"
+                            allowFullScreen
+                            title={`Depoimento de ${testimonial.name}`}
+                          />
+                        </div>
+                      </DialogContent>
+                    </Dialog>
+                  )}
                 </CardContent>
               </Card>
             </CarouselItem>
