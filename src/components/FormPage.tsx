@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Button } from "@/components/ui/button-custom";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -7,6 +7,7 @@ import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, Command
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { User, Mail, Phone, MapPin, Building, Users, Briefcase, Check, ChevronsUpDown } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { filterCities } from '@/data/brazilianCities';
 
 interface FormData {
   nome: string;
@@ -36,6 +37,12 @@ export default function FormPage({ onFormSubmit, onBack }: FormPageProps) {
 
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [cidadeOpen, setCidadeOpen] = useState(false);
+  const [citySearchTerm, setCitySearchTerm] = useState('');
+
+  // Filtrar cidades com limite de 20
+  const filteredCities = useMemo(() => {
+    return filterCities(citySearchTerm, 20);
+  }, [citySearchTerm]);
 
   const validateForm = (): boolean => {
     const newErrors: Record<string, string> = {};
@@ -185,50 +192,28 @@ export default function FormPage({ onFormSubmit, onBack }: FormPageProps) {
                   </PopoverTrigger>
                   <PopoverContent className="w-full p-0">
                     <Command>
-                      <CommandInput placeholder="Buscar cidade..." />
+                      <CommandInput 
+                        placeholder="Buscar cidade..." 
+                        value={citySearchTerm}
+                        onValueChange={setCitySearchTerm}
+                      />
                       <CommandList>
                         <CommandEmpty>Nenhuma cidade encontrada.</CommandEmpty>
                         <CommandGroup>
-                          <CommandItem value="São Paulo - SP" onSelect={() => { handleInputChange('cidade', "São Paulo - SP"); setCidadeOpen(false); }}>
-                            <Check className={cn("mr-2 h-4 w-4", formData.cidade === "São Paulo - SP" ? "opacity-100" : "opacity-0")} />
-                            São Paulo - SP
-                          </CommandItem>
-                          <CommandItem value="Rio de Janeiro - RJ" onSelect={() => { handleInputChange('cidade', "Rio de Janeiro - RJ"); setCidadeOpen(false); }}>
-                            <Check className={cn("mr-2 h-4 w-4", formData.cidade === "Rio de Janeiro - RJ" ? "opacity-100" : "opacity-0")} />
-                            Rio de Janeiro - RJ
-                          </CommandItem>
-                          <CommandItem value="Belo Horizonte - MG" onSelect={() => { handleInputChange('cidade', "Belo Horizonte - MG"); setCidadeOpen(false); }}>
-                            <Check className={cn("mr-2 h-4 w-4", formData.cidade === "Belo Horizonte - MG" ? "opacity-100" : "opacity-0")} />
-                            Belo Horizonte - MG
-                          </CommandItem>
-                          <CommandItem value="Brasília - DF" onSelect={() => { handleInputChange('cidade', "Brasília - DF"); setCidadeOpen(false); }}>
-                            <Check className={cn("mr-2 h-4 w-4", formData.cidade === "Brasília - DF" ? "opacity-100" : "opacity-0")} />
-                            Brasília - DF
-                          </CommandItem>
-                          <CommandItem value="Salvador - BA" onSelect={() => { handleInputChange('cidade', "Salvador - BA"); setCidadeOpen(false); }}>
-                            <Check className={cn("mr-2 h-4 w-4", formData.cidade === "Salvador - BA" ? "opacity-100" : "opacity-0")} />
-                            Salvador - BA
-                          </CommandItem>
-                          <CommandItem value="Fortaleza - CE" onSelect={() => { handleInputChange('cidade', "Fortaleza - CE"); setCidadeOpen(false); }}>
-                            <Check className={cn("mr-2 h-4 w-4", formData.cidade === "Fortaleza - CE" ? "opacity-100" : "opacity-0")} />
-                            Fortaleza - CE
-                          </CommandItem>
-                          <CommandItem value="Recife - PE" onSelect={() => { handleInputChange('cidade', "Recife - PE"); setCidadeOpen(false); }}>
-                            <Check className={cn("mr-2 h-4 w-4", formData.cidade === "Recife - PE" ? "opacity-100" : "opacity-0")} />
-                            Recife - PE
-                          </CommandItem>
-                          <CommandItem value="Porto Alegre - RS" onSelect={() => { handleInputChange('cidade', "Porto Alegre - RS"); setCidadeOpen(false); }}>
-                            <Check className={cn("mr-2 h-4 w-4", formData.cidade === "Porto Alegre - RS" ? "opacity-100" : "opacity-0")} />
-                            Porto Alegre - RS
-                          </CommandItem>
-                          <CommandItem value="Curitiba - PR" onSelect={() => { handleInputChange('cidade', "Curitiba - PR"); setCidadeOpen(false); }}>
-                            <Check className={cn("mr-2 h-4 w-4", formData.cidade === "Curitiba - PR" ? "opacity-100" : "opacity-0")} />
-                            Curitiba - PR
-                          </CommandItem>
-                          <CommandItem value="Goiânia - GO" onSelect={() => { handleInputChange('cidade', "Goiânia - GO"); setCidadeOpen(false); }}>
-                            <Check className={cn("mr-2 h-4 w-4", formData.cidade === "Goiânia - GO" ? "opacity-100" : "opacity-0")} />
-                            Goiânia - GO
-                          </CommandItem>
+                          {filteredCities.map((cidade) => (
+                            <CommandItem 
+                              key={cidade}
+                              value={cidade} 
+                              onSelect={() => { 
+                                handleInputChange('cidade', cidade); 
+                                setCidadeOpen(false);
+                                setCitySearchTerm('');
+                              }}
+                            >
+                              <Check className={cn("mr-2 h-4 w-4", formData.cidade === cidade ? "opacity-100" : "opacity-0")} />
+                              {cidade}
+                            </CommandItem>
+                          ))}
                         </CommandGroup>
                       </CommandList>
                     </Command>
