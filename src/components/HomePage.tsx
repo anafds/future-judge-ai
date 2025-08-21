@@ -39,7 +39,7 @@ export default function HomePage({ onStartQuiz }: HomePageProps) {
           <div className="text-xl md:text-2xl font-blinker font-thin mb-12 text-muted-foreground max-w-3xl mx-auto animate-fade-in-up">
             <div className="border border-primary/30 rounded-lg p-6 glass-card">
               <p className="mb-4">
-                <strong className="text-primary">Sabia agora:</strong> Sua empresa e você estão preparados para IA?
+                <strong className="text-primary">Saiba agora:</strong> Sua empresa e você estão preparados para IA?
               </p>
               <p className="text-lg">
                 Descubra em <span className="text-primary font-bold">1 minuto</span>. 
