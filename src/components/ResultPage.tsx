@@ -113,7 +113,7 @@ export default function ResultPage({ answers, totalScore, onRestart }: ResultPag
               PRONTO PARA VIRAR O JOGO?
             </h3>
             <p className="text-lg text-muted-foreground mb-6 max-w-2xl mx-auto">
-              Não deixe seus concorrentes saírem na frente. A <strong className="text-primary">Imersão Presencial IAFIQUE-SE</strong> vai transformar você e sua empresa em referência em IA.
+              Não deixe seus concorrentes saírem na frente. A <strong className="text-primary">Imersão Presencial IAFIQUE-SE OU MORRA</strong> vai transformar você e sua empresa em referência em IA.
             </p>
             
             <div className="space-y-4">
