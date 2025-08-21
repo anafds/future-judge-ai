@@ -56,7 +56,7 @@ export default function QuizPage({ onQuizComplete, onBack }: QuizPageProps) {
           {/* Header */}
           <div className="text-center mb-8">
             <h1 className="text-2xl md:text-3xl font-blinker font-bold text-gradient mb-4">
-              IA do Juízo Final
+              Descubra o futuro da sua empresa em 30 segundos
             </h1>
             <p className="text-muted-foreground">
               Pergunta {currentQuestion + 1} de {quizQuestions.length}

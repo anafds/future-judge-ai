@@ -15,9 +15,9 @@ export default function ResultPage({ answers, totalScore, onRestart }: ResultPag
 
   const handleWhatsAppClick = () => {
     const message = encodeURIComponent(
-      `Olá! Acabei de fazer o IA do Juízo Final e meu resultado foi ${profile.title}. Quero saber mais sobre a Imersão Presencial IAFIQUE-SE!`
+      `Olá! Acabei de fazer o IA do Juízo Final e meu resultado foi ${profile.title}. Quero saber mais sobre a Imersão Presencial IAFIQUE-SE OU MORRA!`
     );
-    window.open(`https://wa.me/5511999999999?text=${message}`, '_blank');
+    window.open(`https://wa.me/5531991249442?text=${message}`, '_blank');
   };
 
   const getScoreColor = (score: number) => {
