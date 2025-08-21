@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button-custom";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -7,7 +7,7 @@ import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, Command
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { User, Mail, Phone, MapPin, Building, Users, Briefcase, Check, ChevronsUpDown } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { filterCities } from '@/data/brazilianCities';
+import { useCitySearch } from '@/hooks/useCitySearch';
 
 interface FormData {
   nome: string;
@@ -36,13 +36,10 @@ export default function FormPage({ onFormSubmit, onBack }: FormPageProps) {
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [cidadeOpen, setCidadeOpen] = useState(false);
-  const [citySearchTerm, setCitySearchTerm] = useState('');
+  const [openCityPopover, setOpenCityPopover] = useState(false);
+  const [citySearch, setCitySearch] = useState('');
 
-  // Filtrar cidades com limite de 20
-  const filteredCities = useMemo(() => {
-    return filterCities(citySearchTerm, 20);
-  }, [citySearchTerm]);
+  const { cities: filteredCities, isLoading: citiesLoading } = useCitySearch(citySearch);
 
   const validateForm = (): boolean => {
     const newErrors: Record<string, string> = {};
@@ -174,12 +171,12 @@ export default function FormPage({ onFormSubmit, onBack }: FormPageProps) {
                   <MapPin className="w-4 h-4 mr-2 text-primary" />
                   Cidade *
                 </Label>
-                <Popover open={cidadeOpen} onOpenChange={setCidadeOpen}>
+                <Popover open={openCityPopover} onOpenChange={setOpenCityPopover}>
                   <PopoverTrigger asChild>
                     <Button
                       variant="outline"
                       role="combobox"
-                      aria-expanded={cidadeOpen}
+                      aria-expanded={openCityPopover}
                       className={cn(
                         "w-full justify-between bg-input border-border focus:border-primary hover:bg-input text-left font-normal",
                         !formData.cidade && "text-muted-foreground",
@@ -194,27 +191,45 @@ export default function FormPage({ onFormSubmit, onBack }: FormPageProps) {
                     <Command>
                       <CommandInput 
                         placeholder="Buscar cidade..." 
-                        value={citySearchTerm}
-                        onValueChange={setCitySearchTerm}
+                        value={citySearch}
+                        onValueChange={setCitySearch}
                       />
                       <CommandList>
-                        <CommandEmpty>Nenhuma cidade encontrada.</CommandEmpty>
-                        <CommandGroup>
-                          {filteredCities.map((cidade) => (
-                            <CommandItem 
-                              key={cidade}
-                              value={cidade} 
-                              onSelect={() => { 
-                                handleInputChange('cidade', cidade); 
-                                setCidadeOpen(false);
-                                setCitySearchTerm('');
-                              }}
-                            >
-                              <Check className={cn("mr-2 h-4 w-4", formData.cidade === cidade ? "opacity-100" : "opacity-0")} />
-                              {cidade}
-                            </CommandItem>
-                          ))}
-                        </CommandGroup>
+                        {citiesLoading ? (
+                          <div className="p-4 text-center text-sm text-muted-foreground">
+                            Carregando cidades...
+                          </div>
+                        ) : (
+                          <>
+                            <CommandEmpty>
+                              {citySearch.length < 2 
+                                ? "Digite pelo menos 2 caracteres para buscar" 
+                                : "Nenhuma cidade encontrada."
+                              }
+                            </CommandEmpty>
+                            <CommandGroup>
+                              {filteredCities.map((city) => (
+                                <CommandItem
+                                  key={city.id}
+                                  value={city.text}
+                                  onSelect={(currentValue) => {
+                                    handleInputChange('cidade', currentValue);
+                                    setOpenCityPopover(false);
+                                    setCitySearch('');
+                                  }}
+                                >
+                                  <Check
+                                    className={cn(
+                                      "mr-2 h-4 w-4",
+                                      formData.cidade === city.text ? "opacity-100" : "opacity-0"
+                                    )}
+                                  />
+                                  {city.text}
+                                </CommandItem>
+                              ))}
+                            </CommandGroup>
+                          </>
+                        )}
                       </CommandList>
                     </Command>
                   </PopoverContent>
