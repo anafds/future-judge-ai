@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button-custom";
 import { Progress } from "@/components/ui/progress";
 import { quizQuestions, type QuizQuestion } from "@/data/quizData";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 
 interface QuizPageProps {
   onQuizComplete: (answers: number[]) => void;
@@ -16,11 +16,10 @@ export default function QuizPage({ onQuizComplete, onBack }: QuizPageProps) {
 
   const handleAnswerSelect = (score: number) => {
     setSelectedAnswer(score);
-  };
-
-  const handleNext = () => {
-    if (selectedAnswer !== null) {
-      const newAnswers = [...answers, selectedAnswer];
+    
+    // Auto-advance to next question after a short delay
+    setTimeout(() => {
+      const newAnswers = [...answers, score];
       
       if (currentQuestion < quizQuestions.length - 1) {
         setAnswers(newAnswers);
@@ -30,7 +29,7 @@ export default function QuizPage({ onQuizComplete, onBack }: QuizPageProps) {
         // Quiz completed
         onQuizComplete(newAnswers);
       }
-    }
+    }, 500);
   };
 
   const handlePrevious = () => {
@@ -115,7 +114,7 @@ export default function QuizPage({ onQuizComplete, onBack }: QuizPageProps) {
           </div>
 
           {/* Navigation */}
-          <div className="flex justify-between items-center">
+          <div className="flex justify-start items-center">
             <Button 
               variant="outline" 
               onClick={handlePrevious}
@@ -124,26 +123,7 @@ export default function QuizPage({ onQuizComplete, onBack }: QuizPageProps) {
               <ArrowLeft className="w-4 h-4 mr-2" />
               {currentQuestion === 0 ? 'Voltar' : 'Anterior'}
             </Button>
-
-            <Button 
-              variant="hero"
-              onClick={handleNext}
-              disabled={selectedAnswer === null}
-              className="flex items-center"
-            >
-              {currentQuestion === quizQuestions.length - 1 ? 'Finalizar' : 'Próxima'}
-              <ArrowRight className="w-4 h-4 ml-2" />
-            </Button>
           </div>
-
-          {/* Warning Message */}
-          {selectedAnswer === null && (
-            <div className="text-center mt-4">
-              <p className="text-sm text-muted-foreground">
-                Selecione uma resposta para continuar
-              </p>
-            </div>
-          )}
 
         </div>
       </div>
