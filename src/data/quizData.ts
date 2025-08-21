@@ -142,46 +142,46 @@ export interface UserProfile {
 export const userProfiles: Record<string, UserProfile> = {
   curioso: {
     range: [10, 20],
-    title: '🔍 CURIOSO',
-    description: 'Você está no início da jornada. Conhece a IA, mas ainda não aplicou de forma consistente.',
-    mainAlert: 'ALERTA CRÍTICO: Enquanto você explora, seus concorrentes já estão implementando e ganhando vantagem competitiva.',
+    title: '☠️ CURIOSO – O Fim Está Próximo',
+    description: 'Sua empresa está à beira do colapso digital. Você acha a IA incrível, mas continua olhando de fora. Enquanto você assiste, o mercado avança sem você.',
+    mainAlert: 'APOCALIPSE IMINENTE: Sua empresa corre sério risco de se tornar irrelevante em pouco tempo.',
     criticalAlerts: [
-      'Sua empresa está perdendo oportunidades de produtividade',
-      'Concorrentes podem estar se distanciando',
-      'Falta estratégia clara de implementação'
+      'Produtividade sendo drenada por tarefas manuais',
+      'Concorrentes já estão anos à frente',
+      'Sua empresa está rumo ao fim do mundo corporativo se nada mudar agora'
     ]
   },
   iniciante: {
     range: [21, 30],
-    title: '🚀 INICIANTE',
-    description: 'Você deu os primeiros passos, mas ainda há muito potencial inexplorado.',
-    mainAlert: 'ALERTA CRÍTICO: Você está na zona de perigo. Não é mais cedo para começar, mas ainda não é tarde demais.',
+    title: '🔥 INICIANTE – Zona de Perigo',
+    description: 'Você começou a experimentar a IA, mas continua brincando com fogo. Implementações rasas não vão salvar sua empresa.',
+    mainAlert: 'ALERTA VERMELHO: Sua empresa já sente os tremores do apocalipse competitivo.',
     criticalAlerts: [
-      'Implementações pontuais não geram impacto real',
-      'Falta visão estratégica de longo prazo',
-      'Equipe não está preparada para a transformação'
+      'Uso pontual da IA não gera impacto real',
+      'Falta visão estratégica para sobreviver',
+      'Sua equipe não está preparada para o colapso que vem aí'
     ]
   },
   implementador: {
     range: [31, 40],
-    title: '⚡ IMPLEMENTADOR',
-    description: 'Você está no caminho certo! Já vê resultados, mas pode acelerar muito mais.',
-    mainAlert: 'ALERTA CRÍTICO: Você está bem, mas "bem" não ganha mercado. É hora de acelerar para dominar.',
+    title: '⚡ IMPLEMENTADOR – Sobrevivente em Risco',
+    description: 'Sua empresa já respira com ajuda da IA, mas ainda está vulnerável. O que você conquistou pode não durar se não acelerar agora.',
+    mainAlert: 'COLAPSO À VISTA: O mercado não perdoa quem anda devagar. “Bom” não salva ninguém do fim.',
     criticalAlerts: [
-      'Potencial de ROI ainda não explorado',
-      'Concorrentes podem estar acelerando mais',
-      'Oportunidades de inovação sendo perdidas'
+      'ROI real ainda não está sendo explorado ao máximo',
+      'Concorrentes podem ultrapassar e te engolir',
+      'As oportunidades de inovação estão sendo perdidas a cada mês'
     ]
   },
   estrategista: {
     range: [41, 50],
-    title: '👑 ESTRATEGISTA',
-    description: 'Parabéns! Você está entre a elite que realmente entende e aplica IA estrategicamente.',
-    mainAlert: 'ALERTA CRÍTICO: Mesmo sendo um estrategista, a IA evolui rapidamente. Estagnação = retrocesso.',
+    title: '👑 ESTRATEGISTA – À Beira do Trono ou da Queda',
+    description: 'Você está entre a elite que redesenha negócios com IA. Mas cuidado: até gigantes tombam quando acham que já venceram.',
+    mainAlert: 'JUÍZO FINAL: A estagnação é o inimigo silencioso. O próximo movimento define se você domina ou é dominado.',
     criticalAlerts: [
-      'Necessário manter-se atualizado constantemente',
-      'Novos competidores podem aparecer',
-      'Oportunidades emergentes de IA ainda não exploradas'
+      'A evolução da IA é diária, e você pode ser superado',
+      'Novos players surgem preparados para te derrubar',
+      'Se não acelerar a execução, sua vantagem vira pó'
     ]
   }
 };
@@ -196,92 +196,32 @@ export function calculateProfile(totalScore: number): UserProfile {
 }
 
 export function generateCriticalAlerts(answers: number[], totalScore: number): string[] {
-  // Agrupar respostas por categoria e calcular pontuação média
-  const categoryScores: Record<string, { scores: number[], avgScore: number }> = {};
-  
-  answers.forEach((score, index) => {
-    const category = quizQuestions[index].category;
-    if (!categoryScores[category]) {
-      categoryScores[category] = { scores: [], avgScore: 0 };
-    }
-    categoryScores[category].scores.push(score);
-  });
+  const lowScoreQuestions = answers
+    .map((score, index) => ({ score, question: quizQuestions[index] }))
+    .filter(item => item.score <= 2)
+    .slice(0, 3);
 
-  // Calcular pontuação média por categoria
-  Object.keys(categoryScores).forEach(category => {
-    const scores = categoryScores[category].scores;
-    categoryScores[category].avgScore = scores.reduce((sum, score) => sum + score, 0) / scores.length;
-  });
-
-  // Ordenar categorias por pior desempenho (menor pontuação média)
-  const sortedCategories = Object.entries(categoryScores)
-    .sort(([, a], [, b]) => a.avgScore - b.avgScore)
-    .map(([category]) => category);
-
-  // Alertas específicos por categoria
-  const categoryAlerts: Record<string, string[]> = {
-    'Produtividade': [
-      'Automação inadequada está custando tempo e dinheiro',
-      'Oportunidades de eficiência operacional sendo desperdiçadas',
-      'Processos manuais drenam recursos preciosos'
-    ],
-    'Performance': [
-      'ROI e qualidade poderiam ser dramaticamente melhores',
-      'Métricas de performance ficam aquém do potencial',
-      'Indicadores de sucesso não refletem o investimento em IA'
-    ],
-    'Inovação': [
-      'Concorrentes podem estar inovando mais rapidamente',
-      'Potencial de novos produtos/serviços inexplorado',
-      'Vantagem competitiva está sendo perdida para o mercado'
-    ],
-    'Liderança': [
-      'Liderança despreparada = estratégia de IA fadada ao fracasso',
-      'Falta visão estratégica para orientar transformação digital',
-      'Equipe não está sendo capacitada para era da IA'
-    ]
-  };
-
-  // Alertas para pontuações altas (mantendo a diversidade)
-  const highScoreAlerts = [
-    'IA evolui rapidamente - manter-se atualizado é crucial',
-    'Novos competidores podem emergir com soluções disruptivas',
-    'Oportunidades emergentes de mercado podem estar sendo perdidas'
-  ];
-
-  // Se pontuação alta, retornar alertas de manutenção da liderança
-  if (totalScore >= 35) {
-    return highScoreAlerts;
-  }
-
-  // Selecionar alertas únicos das 3 piores categorias
-  const alerts: string[] = [];
-  let categoryIndex = 0;
-  let alertVariantIndex = 0;
-
-  // Garantir 3 alertas únicos priorizando as piores categorias
-  while (alerts.length < 3 && categoryIndex < sortedCategories.length) {
-    const category = sortedCategories[categoryIndex];
-    const availableAlerts = categoryAlerts[category];
-    
-    if (availableAlerts && alertVariantIndex < availableAlerts.length) {
-      alerts.push(availableAlerts[alertVariantIndex]);
-      categoryIndex++;
-    } else {
-      categoryIndex++;
-      alertVariantIndex = 0;
-    }
-  }
-
-  // Se ainda não temos 3 alertas, usar alertas gerais
-  while (alerts.length < 3) {
-    const remainingAlerts = [
-      'Transformação digital incompleta limita crescimento',
-      'Oportunidades de otimização sendo desperdiçadas',
-      'Estratégia de IA precisa de revisão urgente'
+  if (lowScoreQuestions.length === 0) {
+    // Para pontuações altas, alertas sobre manutenção da liderança
+    return [
+      'IA evolui rapidamente - manter-se atualizado é crucial',
+      'Novos competidores podem emergir com soluções disruptivas', 
+      'Oportunidades de mercado podem estar sendo perdidas'
     ];
-    alerts.push(remainingAlerts[alerts.length - 1] || 'Área crítica precisa de atenção imediata');
   }
 
-  return alerts.slice(0, 3);
+  return lowScoreQuestions.map(item => {
+    switch (item.question.category) {
+      case 'Produtividade':
+        return 'Automação inadequada está custando tempo e dinheiro';
+      case 'Performance': 
+        return 'ROI e qualidade poderiam ser dramaticamente melhores';
+      case 'Inovação':
+        return 'Concorrentes podem estar inovando mais rapidamente';
+      case 'Liderança':
+        return 'Liderança despreparada = estratégia de IA fadada ao fracasso';
+      default:
+        return 'Área crítica identificada precisa de atenção imediata';
+    }
+  });
 }
