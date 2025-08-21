@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button-custom";
 import { calculateProfile, generateCriticalAlerts, type UserProfile } from "@/data/quizData";
 import { AlertTriangle, Award, MessageCircle, Download, Target } from "lucide-react";
+import { TestimonialsCarousel } from "./TestimonialsCarousel";
 
 interface ResultPageProps {
   answers: number[];
@@ -131,6 +132,11 @@ export default function ResultPage({ answers, totalScore, onRestart }: ResultPag
                 📱 <strong>Atendimento via WhatsApp</strong>
               </p>
             </div>
+          </div>
+
+          {/* Testimonials Carousel */}
+          <div className="mt-12 animate-fade-in-up">
+            <TestimonialsCarousel />
           </div>
 
           {/* Secondary Actions */}
