@@ -196,32 +196,92 @@ export function calculateProfile(totalScore: number): UserProfile {
 }
 
 export function generateCriticalAlerts(answers: number[], totalScore: number): string[] {
-  const lowScoreQuestions = answers
-    .map((score, index) => ({ score, question: quizQuestions[index] }))
-    .filter(item => item.score <= 2)
-    .slice(0, 3);
+  // Agrupar respostas por categoria e calcular pontuação média
+  const categoryScores: Record<string, { scores: number[], avgScore: number }> = {};
+  
+  answers.forEach((score, index) => {
+    const category = quizQuestions[index].category;
+    if (!categoryScores[category]) {
+      categoryScores[category] = { scores: [], avgScore: 0 };
+    }
+    categoryScores[category].scores.push(score);
+  });
 
-  if (lowScoreQuestions.length === 0) {
-    // Para pontuações altas, alertas sobre manutenção da liderança
-    return [
-      'IA evolui rapidamente - manter-se atualizado é crucial',
-      'Novos competidores podem emergir com soluções disruptivas', 
-      'Oportunidades de mercado podem estar sendo perdidas'
-    ];
+  // Calcular pontuação média por categoria
+  Object.keys(categoryScores).forEach(category => {
+    const scores = categoryScores[category].scores;
+    categoryScores[category].avgScore = scores.reduce((sum, score) => sum + score, 0) / scores.length;
+  });
+
+  // Ordenar categorias por pior desempenho (menor pontuação média)
+  const sortedCategories = Object.entries(categoryScores)
+    .sort(([, a], [, b]) => a.avgScore - b.avgScore)
+    .map(([category]) => category);
+
+  // Alertas específicos por categoria
+  const categoryAlerts: Record<string, string[]> = {
+    'Produtividade': [
+      'Automação inadequada está custando tempo e dinheiro',
+      'Oportunidades de eficiência operacional sendo desperdiçadas',
+      'Processos manuais drenam recursos preciosos'
+    ],
+    'Performance': [
+      'ROI e qualidade poderiam ser dramaticamente melhores',
+      'Métricas de performance ficam aquém do potencial',
+      'Indicadores de sucesso não refletem o investimento em IA'
+    ],
+    'Inovação': [
+      'Concorrentes podem estar inovando mais rapidamente',
+      'Potencial de novos produtos/serviços inexplorado',
+      'Vantagem competitiva está sendo perdida para o mercado'
+    ],
+    'Liderança': [
+      'Liderança despreparada = estratégia de IA fadada ao fracasso',
+      'Falta visão estratégica para orientar transformação digital',
+      'Equipe não está sendo capacitada para era da IA'
+    ]
+  };
+
+  // Alertas para pontuações altas (mantendo a diversidade)
+  const highScoreAlerts = [
+    'IA evolui rapidamente - manter-se atualizado é crucial',
+    'Novos competidores podem emergir com soluções disruptivas',
+    'Oportunidades emergentes de mercado podem estar sendo perdidas'
+  ];
+
+  // Se pontuação alta, retornar alertas de manutenção da liderança
+  if (totalScore >= 35) {
+    return highScoreAlerts;
   }
 
-  return lowScoreQuestions.map(item => {
-    switch (item.question.category) {
-      case 'Produtividade':
-        return 'Automação inadequada está custando tempo e dinheiro';
-      case 'Performance': 
-        return 'ROI e qualidade poderiam ser dramaticamente melhores';
-      case 'Inovação':
-        return 'Concorrentes podem estar inovando mais rapidamente';
-      case 'Liderança':
-        return 'Liderança despreparada = estratégia de IA fadada ao fracasso';
-      default:
-        return 'Área crítica identificada precisa de atenção imediata';
+  // Selecionar alertas únicos das 3 piores categorias
+  const alerts: string[] = [];
+  let categoryIndex = 0;
+  let alertVariantIndex = 0;
+
+  // Garantir 3 alertas únicos priorizando as piores categorias
+  while (alerts.length < 3 && categoryIndex < sortedCategories.length) {
+    const category = sortedCategories[categoryIndex];
+    const availableAlerts = categoryAlerts[category];
+    
+    if (availableAlerts && alertVariantIndex < availableAlerts.length) {
+      alerts.push(availableAlerts[alertVariantIndex]);
+      categoryIndex++;
+    } else {
+      categoryIndex++;
+      alertVariantIndex = 0;
     }
-  });
+  }
+
+  // Se ainda não temos 3 alertas, usar alertas gerais
+  while (alerts.length < 3) {
+    const remainingAlerts = [
+      'Transformação digital incompleta limita crescimento',
+      'Oportunidades de otimização sendo desperdiçadas',
+      'Estratégia de IA precisa de revisão urgente'
+    ];
+    alerts.push(remainingAlerts[alerts.length - 1] || 'Área crítica precisa de atenção imediata');
+  }
+
+  return alerts.slice(0, 3);
 }
