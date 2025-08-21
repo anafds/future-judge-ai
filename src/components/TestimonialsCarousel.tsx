@@ -27,7 +27,7 @@ const testimonials: Testimonial[] = [
     text: "Me ajudou a trazer muita coisa no meu negócio. Principalmente a questão de equipe que teria que ter e eu vi que a IA permite escalar. Ensina o passo a passo de tudo, muita aplicação, muita coisa na prática.",
     video: true,
     videoUrl: "https://www.youtube.com/embed/TfATpjF3BrE?autoplay=1&modestbranding=1&rel=0&playsinline=1",
-    avatar: "/lovable-uploads/5664c657-7461-4466-92e8-afa6315c1c6e.png",
+    avatar: "/lovable-uploads/6ff05d67-d6e7-429e-96af-4018821226db.png",
     rating: 5
   },
   {
@@ -36,7 +36,7 @@ const testimonials: Testimonial[] = [
     text: "Efetivamente posso atestar que todo o trabalho é muito prático, muito implementado. Quem sair na frente, efetivamente vai ganhar. Na imersão, a gente tem um atendimento diferenciado, uma aplicação muito inteligente e muito prática.",
     video: true,
     videoUrl: "https://www.youtube.com/embed/ZWucMtnpEUQ?autoplay=1&modestbranding=1&rel=0&playsinline=1",
-    avatar: "/lovable-uploads/729aeec9-701e-4522-8fc7-5dc56affdbc4.png",
+    avatar: "/lovable-uploads/3f1f656d-9d7c-4108-a355-73a2a40496f8.png",
     rating: 5
   },
   {
@@ -45,7 +45,7 @@ const testimonials: Testimonial[] = [
     text: "Aprendi uma questão tão importante na imersão que transformou a forma como entregamos um produto na agência. Estava em busca de criar esse produto mas entendi, com a imersão que consigo fazer com IA sem gastar 1 real a mais e o melhor fazer de forma simples, prática e rápido. Pra mim foi o grande ponto da imersão.",
     video: true,
     videoUrl: "https://www.youtube.com/embed/YJlYjDyNiac?autoplay=1&modestbranding=1&rel=0&playsinline=1",
-    avatar: "/lovable-uploads/74777625-5611-4ef2-bd44-1e9e46362993.png",
+    avatar: "/lovable-uploads/9f4abb98-7fd7-4442-b9d9-4ea48c8a7bc7.png",
     rating: 5
   },
   {
@@ -54,7 +54,7 @@ const testimonials: Testimonial[] = [
     text: "O que mais gostei é a maneira prática e fácil de como o Rodrigo consegue conduzir de forma simples. Consegui aplicar na imersão que antes eu achava que era privilégio de poucos. Muito prática a imersão",
     video: true,
     videoUrl: "https://www.youtube.com/embed/mX1ranZWzD8?autoplay=1&modestbranding=1&rel=0&playsinline=1",
-    avatar: "/lovable-uploads/d15834b7-2a52-497b-a5dd-58951c38d2fb.png",
+    avatar: "/lovable-uploads/8a7f825b-2d53-4b13-8ec2-3f60ca1d6d65.png",
     rating: 5
   },
   {
@@ -63,7 +63,7 @@ const testimonials: Testimonial[] = [
     text: "A imersão foi uma grande oportunidade pra eu repensar no meu dia a dia e tornar minha rotina mais leve através da Inteligência Artificial trazendo mais eficiência operacional otimizando tempo e recurso para minhas empresas e vida pessoal. E a troca com outras pessoas enriquece muito o ambiente.",
     video: true,
     videoUrl: "https://www.youtube.com/embed/9eWvPwqFW9Y?autoplay=1&modestbranding=1&rel=0&playsinline=1",
-    avatar: "/lovable-uploads/d1ef77d6-5a93-4555-8301-3f29062eda1c.png",
+    avatar: "/lovable-uploads/d6fd6ed2-321a-4af1-ae6e-60f993e9878b.png",
     rating: 5
   },
   {
@@ -72,7 +72,7 @@ const testimonials: Testimonial[] = [
     text: "O grande diferencial do treinamento é a parte prática onde o Rodrigo da os exercícios pra gente poder desenvolver e utilizar as ferramentas de IA para os nossos negócios e muito importante é o acompanhamento dele durante a imersão pra gente conseguir o melhor resultado.",
     video: true,
     videoUrl: "https://www.youtube.com/embed/JsXta0UC4Lk?autoplay=1&modestbranding=1&rel=0&playsinline=1",
-    avatar: "/lovable-uploads/332759fe-4c83-4d15-8335-bf3ca91b3f15.png",
+    avatar: "/lovable-uploads/97d3607f-6d3f-4b1d-8154-65e88df28eb2.png",
     rating: 5
   }
 ];
