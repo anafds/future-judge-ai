@@ -198,8 +198,7 @@ export function calculateProfile(totalScore: number): UserProfile {
 export function generateCriticalAlerts(answers: number[], totalScore: number): string[] {
   const lowScoreQuestions = answers
     .map((score, index) => ({ score, question: quizQuestions[index] }))
-    .filter(item => item.score <= 2)
-    .slice(0, 3);
+    .filter(item => item.score <= 2);
 
   if (lowScoreQuestions.length === 0) {
     // Para pontuações altas, alertas sobre manutenção da liderança
@@ -210,18 +209,26 @@ export function generateCriticalAlerts(answers: number[], totalScore: number): s
     ];
   }
 
-  return lowScoreQuestions.map(item => {
-    switch (item.question.category) {
+  // Agrupar por categoria para evitar duplicatas
+  const categoriesWithIssues = new Set(lowScoreQuestions.map(item => item.question.category));
+  
+  const alerts: string[] = [];
+  categoriesWithIssues.forEach(category => {
+    switch (category) {
       case 'Produtividade':
-        return 'Automação inadequada está custando tempo e dinheiro';
+        alerts.push('Automação inadequada está custando tempo e dinheiro');
+        break;
       case 'Performance': 
-        return 'ROI e qualidade poderiam ser dramaticamente melhores';
+        alerts.push('ROI e qualidade poderiam ser dramaticamente melhores');
+        break;
       case 'Inovação':
-        return 'Concorrentes podem estar inovando mais rapidamente';
+        alerts.push('Concorrentes podem estar inovando mais rapidamente');
+        break;
       case 'Liderança':
-        return 'Liderança despreparada = estratégia de IA fadada ao fracasso';
-      default:
-        return 'Área crítica identificada precisa de atenção imediata';
+        alerts.push('Liderança despreparada = estratégia de IA fadada ao fracasso');
+        break;
     }
   });
+
+  return alerts.slice(0, 3); // Limitar a 3 alertas máximo
 }
