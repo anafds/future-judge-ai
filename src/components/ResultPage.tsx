@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button-custom";
 import { calculateProfile, generateCriticalAlerts, type UserProfile } from "@/data/quizData";
 import { AlertTriangle, Award, MessageCircle, Download, Target } from "lucide-react";
 import { TestimonialsCarousel } from "./TestimonialsCarousel";
+import { CountdownTimer } from "./CountdownTimer";
 
 interface ResultPageProps {
   answers: number[];
@@ -172,12 +173,10 @@ export default function ResultPage({ answers, totalScore, onRestart }: ResultPag
               </div>
               
               <div className="mb-8">
-                <p className="text-xl text-muted-foreground leading-relaxed max-w-3xl mx-auto">
+                <p className="text-xl text-muted-foreground leading-relaxed max-w-3xl mx-auto mb-6">
                   Transforme seu conhecimento em IA prática e pare de depender apenas de terceiros. 
                 </p>
-                <p className="text-lg font-semibold text-primary mt-2">
-                  ⚡ Vagas limitadas - Apenas 50 pessoas!
-                </p>
+                <CountdownTimer initialMinutes={10} />
               </div>
             </div>
             
