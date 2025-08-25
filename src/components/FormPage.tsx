@@ -161,7 +161,7 @@ export default function FormPage({ onFormSubmit, onBack }: FormPageProps) {
               <div>
                 <Label htmlFor="cidade" className="flex items-center mb-2 font-blinker font-bold">
                   <MapPin className="w-4 h-4 mr-2 text-primary" />
-                  Cidade e estado (Exemplo: Belo Horizonte - MG) *
+                  Cidade e estado *
                 </Label>
                 <Input
                   id="cidade"
