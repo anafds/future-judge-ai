@@ -110,10 +110,13 @@ export default function ResultPage({ answers, totalScore, onRestart }: ResultPag
 
           {/* Exclusive Offer Section */}
           <div className="text-center mb-8 animate-fade-in-up">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-blinker font-bold text-gradient mb-2">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-blinker font-bold text-gradient mb-6">
               Você acabou de desbloquear uma oferta exclusiva
             </h2>
-            <div className="flex items-center justify-center gap-2 mt-4">
+            
+            <CountdownTimer initialMinutes={10} />
+            
+            <div className="flex items-center justify-center gap-2 mt-6">
               <div className="w-3 h-3 bg-primary rounded-full animate-pulse"></div>
               <span className="text-sm font-medium text-primary uppercase tracking-wider">
                 🔓 Oferta desbloqueada apenas para você
@@ -173,10 +176,9 @@ export default function ResultPage({ answers, totalScore, onRestart }: ResultPag
               </div>
               
               <div className="mb-8">
-                <p className="text-xl text-muted-foreground leading-relaxed max-w-3xl mx-auto mb-6">
+                <p className="text-xl text-muted-foreground leading-relaxed max-w-3xl mx-auto">
                   Transforme seu conhecimento em IA prática e pare de depender apenas de terceiros. 
                 </p>
-                <CountdownTimer initialMinutes={10} />
               </div>
             </div>
             
