@@ -186,7 +186,7 @@ export default function ResultPage({ answers, totalScore, onRestart }: ResultPag
               <Button 
                 variant="hero" 
                 size="xl" 
-                onClick={handleWhatsAppClick}
+                onClick={() => window.open('https://pay.hotmart.com/O101559482N?off=nif4xe0p', '_blank')}
                 className="animate-pulse-glow"
               >
                 <MessageCircle className="w-6 h-6 mr-3" />
