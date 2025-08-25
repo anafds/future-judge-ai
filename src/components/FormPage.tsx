@@ -98,7 +98,7 @@ export default function FormPage({ onFormSubmit, onBack }: FormPageProps) {
               Quase lá! Seus dados para o diagnóstico
             </h1>
             <p className="text-muted-foreground">
-              Precisamos dessas informações para personalizar seu relatório
+              Preencha o formulário para receber seu diagnóstico
             </p>
           </div>
 
