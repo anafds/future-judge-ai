@@ -15,7 +15,7 @@ export default function ResultPage({ answers, totalScore, onRestart }: ResultPag
 
   const handleWhatsAppClick = () => {
     const message = encodeURIComponent(
-      `Olá! Acabei de fazer o IA do Juízo Final e meu resultado foi ${profile.title}. Quero saber mais sobre a Imersão Presencial IAFIQUE-SE OU MORRA!`
+      `Olá! Acabei de fazer o IA do Juízo Final e meu resultado foi ${profile.title}. Quero garantir minha vaga na oferta exclusiva do Curso Online IA na Prática por R$ 97 no sábado 06/09!`
     );
     window.open(`https://wa.me/5531991249442?text=${message}`, '_blank');
   };
@@ -107,14 +107,55 @@ export default function ResultPage({ answers, totalScore, onRestart }: ResultPag
             </div>
           </div>
 
-          {/* CTA Section */}
-          <div className="glass-card p-8 text-center animate-fade-in-up">
-            <h3 className="text-2xl font-blinker font-bold text-gradient mb-4">
-              PRONTO PARA VIRAR O JOGO?
-            </h3>
-            <p className="text-lg text-muted-foreground mb-6 max-w-2xl mx-auto">
-              Não deixe seus concorrentes saírem na frente. A <strong className="text-primary">Imersão Presencial IAFIQUE-SE OU MORRA</strong> vai transformar você e sua empresa em referência em IA.
-            </p>
+          {/* Exclusive Offer Section */}
+          <div className="glass-card p-8 text-center animate-fade-in-up relative overflow-hidden">
+            {/* Exclusive Badge */}
+            <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
+              <div className="bg-gradient-primary px-6 py-2 rounded-full">
+                <span className="text-sm font-blinker font-bold text-primary-foreground">
+                  🔓 OFERTA EXCLUSIVA DESBLOQUEADA
+                </span>
+              </div>
+            </div>
+
+            <div className="mt-6">
+              <h3 className="text-2xl md:text-3xl font-blinker font-bold text-gradient mb-4">
+                Aprenda a criar sua própria IA e não depender 100% de pessoas!
+              </h3>
+              
+              <div className="bg-border/20 rounded-lg p-6 mb-6">
+                <div className="flex items-center justify-center gap-2 mb-4">
+                  <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+                  <span className="text-sm font-medium text-muted-foreground">CURSO ONLINE AO VIVO</span>
+                </div>
+                
+                <div className="grid md:grid-cols-2 gap-4 text-sm text-muted-foreground mb-4">
+                  <div>📅 <strong>Sábado, 06/09/2024</strong></div>
+                  <div>⏰ <strong>Das 10h às 16h</strong></div>
+                </div>
+                
+                {/* Price Section */}
+                <div className="mb-6">
+                  <div className="flex items-center justify-center gap-4 mb-2">
+                    <span className="text-2xl text-muted-foreground line-through">R$ 997</span>
+                    <div className="bg-destructive text-destructive-foreground px-3 py-1 rounded-full text-sm font-bold">
+                      90% OFF
+                    </div>
+                  </div>
+                  <div className="text-4xl md:text-5xl font-blinker font-bold text-gradient">
+                    R$ 97
+                  </div>
+                  <p className="text-sm text-muted-foreground mt-2">
+                    💳 <strong>Apenas para quem fez o diagnóstico</strong>
+                  </p>
+                </div>
+              </div>
+              
+              <p className="text-lg text-muted-foreground mb-6 max-w-2xl mx-auto">
+                Transforme seu conhecimento em IA prática e pare de depender apenas de terceiros. 
+                <strong className="text-primary"> Vagas limitadas!</strong>
+              </p>
+            </div>
             
             <div className="space-y-4">
               <Button 
@@ -124,12 +165,12 @@ export default function ResultPage({ answers, totalScore, onRestart }: ResultPag
                 className="animate-pulse-glow"
               >
                 <MessageCircle className="w-6 h-6 mr-3" />
-                QUERO VIRAR O JOGO AGORA
+                GARANTA SUA VAGA AGORA
               </Button>
               
               <p className="text-sm text-muted-foreground">
-                📧 <strong>Relatório PDF enviado por email</strong> • 
-                📱 <strong>Atendimento via WhatsApp</strong>
+                🎯 <strong>Oferta exclusiva válida apenas hoje</strong> • 
+                📱 <strong>Confirmação via WhatsApp</strong>
               </p>
             </div>
           </div>
