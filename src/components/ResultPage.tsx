@@ -108,53 +108,77 @@ export default function ResultPage({ answers, totalScore, onRestart }: ResultPag
           </div>
 
           {/* Exclusive Offer Section */}
-          <div className="glass-card p-8 text-center animate-fade-in-up relative overflow-hidden">
-            {/* Exclusive Badge */}
-            <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-              <div className="bg-gradient-primary px-6 py-2 rounded-full">
-                <span className="text-sm font-blinker font-bold text-primary-foreground">
-                  🔓 OFERTA EXCLUSIVA DESBLOQUEADA
-                </span>
-              </div>
+          <div className="text-center mb-8 animate-fade-in-up">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-blinker font-bold text-gradient mb-2">
+              Você acabou de desbloquear uma oferta exclusiva
+            </h2>
+            <div className="flex items-center justify-center gap-2 mt-4">
+              <div className="w-3 h-3 bg-primary rounded-full animate-pulse"></div>
+              <span className="text-sm font-medium text-primary uppercase tracking-wider">
+                🔓 Oferta desbloqueada apenas para você
+              </span>
             </div>
+          </div>
 
-            <div className="mt-6">
-              <h3 className="text-2xl md:text-3xl font-blinker font-bold text-gradient mb-4">
+          <div className="glass-card p-8 text-center animate-fade-in-up relative overflow-hidden border-2 border-primary/20">
+            <div className="mb-8">
+              <h3 className="text-2xl md:text-3xl font-blinker font-bold text-foreground mb-6 leading-tight">
                 Aprenda a criar sua própria IA e não depender 100% de pessoas!
               </h3>
               
-              <div className="bg-border/20 rounded-lg p-6 mb-6">
-                <div className="flex items-center justify-center gap-2 mb-4">
+              <div className="bg-gradient-to-r from-border/10 to-border/20 rounded-lg p-8 mb-8 border border-primary/20">
+                {/* Course Type Badge */}
+                <div className="flex items-center justify-center gap-2 mb-6">
                   <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-                  <span className="text-sm font-medium text-muted-foreground">CURSO ONLINE AO VIVO</span>
+                  <span className="text-base font-semibold text-green-400 uppercase tracking-wider">
+                    CURSO ONLINE AO VIVO
+                  </span>
                 </div>
                 
-                <div className="grid md:grid-cols-2 gap-4 text-sm text-muted-foreground mb-4">
-                  <div>📅 <strong>Sábado, 06/09/2024</strong></div>
-                  <div>⏰ <strong>Das 10h às 16h</strong></div>
+                {/* Date & Time */}
+                <div className="grid md:grid-cols-2 gap-6 mb-8">
+                  <div className="flex items-center justify-center gap-3 p-4 bg-background/50 rounded-lg border border-primary/10">
+                    <span className="text-2xl">📅</span>
+                    <div>
+                      <p className="text-sm text-muted-foreground">Data</p>
+                      <p className="font-bold text-foreground">Sábado, 06/09/2024</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-center gap-3 p-4 bg-background/50 rounded-lg border border-primary/10">
+                    <span className="text-2xl">⏰</span>
+                    <div>
+                      <p className="text-sm text-muted-foreground">Horário</p>
+                      <p className="font-bold text-foreground">Das 10h às 16h</p>
+                    </div>
+                  </div>
                 </div>
                 
                 {/* Price Section */}
-                <div className="mb-6">
-                  <div className="flex items-center justify-center gap-4 mb-2">
-                    <span className="text-2xl text-muted-foreground line-through">R$ 997</span>
-                    <div className="bg-destructive text-destructive-foreground px-3 py-1 rounded-full text-sm font-bold">
+                <div className="text-center mb-6">
+                  <div className="flex items-center justify-center gap-4 mb-4">
+                    <span className="text-3xl text-muted-foreground line-through opacity-60">R$ 997</span>
+                    <div className="bg-gradient-to-r from-destructive to-destructive/80 text-destructive-foreground px-4 py-2 rounded-full text-base font-bold animate-pulse">
                       90% OFF
                     </div>
                   </div>
-                  <div className="text-4xl md:text-5xl font-blinker font-bold text-gradient">
+                  <div className="text-5xl md:text-6xl font-blinker font-bold text-gradient mb-3">
                     R$ 97
                   </div>
-                  <p className="text-sm text-muted-foreground mt-2">
-                    💳 <strong>Apenas para quem fez o diagnóstico</strong>
-                  </p>
+                  <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full">
+                    <span className="text-lg">💳</span>
+                    <span className="text-sm font-semibold">Apenas para quem fez o diagnóstico</span>
+                  </div>
                 </div>
               </div>
               
-              <p className="text-lg text-muted-foreground mb-6 max-w-2xl mx-auto">
-                Transforme seu conhecimento em IA prática e pare de depender apenas de terceiros. 
-                <strong className="text-primary"> Vagas limitadas!</strong>
-              </p>
+              <div className="mb-8">
+                <p className="text-xl text-muted-foreground leading-relaxed max-w-3xl mx-auto">
+                  Transforme seu conhecimento em IA prática e pare de depender apenas de terceiros. 
+                </p>
+                <p className="text-lg font-semibold text-primary mt-2">
+                  ⚡ Vagas limitadas - Apenas 50 pessoas!
+                </p>
+              </div>
             </div>
             
             <div className="space-y-4">
