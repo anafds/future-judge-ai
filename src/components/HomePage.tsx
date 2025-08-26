@@ -60,9 +60,9 @@ export default function HomePage({ onStartQuiz }: HomePageProps) {
               <p className="text-muted-foreground text-sm">Descubra exatamente onde você está perdendo</p>
             </div>
             <div className="glass-card p-6 hover-lift">
-              <AlertTriangle className="w-8 h-8 text-destructive mx-auto mb-4" />
-              <h3 className="font-blinker font-bold text-lg mb-2">Relatório Completo</h3>
-              <p className="text-muted-foreground text-sm">PDF detalhado enviado por email</p>
+              <Target className="w-8 h-8 text-primary mx-auto mb-4" />
+              <h3 className="font-blinker font-bold text-lg mb-2">Saiba qual IA usar</h3>
+              <p className="text-muted-foreground text-sm">Descubra qual melhor IA para você usar nos seus processos</p>
             </div>
           </div>
 
