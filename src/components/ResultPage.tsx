@@ -163,16 +163,11 @@ export default function ResultPage({ answers, totalScore, onRestart }: ResultPag
                   <div className="space-y-2">
                     <p className="text-xs font-semibold text-foreground mb-2">Ideal para:</p>
                     <div className="flex flex-wrap gap-1">
-                      {ai.bestFor.slice(0, 2).map((use, useIndex) => (
+                      {ai.bestFor.map((use, useIndex) => (
                         <span key={useIndex} className="text-xs bg-background/50 text-muted-foreground px-2 py-1 rounded border border-border">
                           {use}
                         </span>
                       ))}
-                      {ai.bestFor.length > 2 && (
-                        <span className="text-xs text-primary">
-                          +{ai.bestFor.length - 2} mais
-                        </span>
-                      )}
                     </div>
                   </div>
                 </div>
