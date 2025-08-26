@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button-custom";
-import { calculateProfile, generateCriticalAlerts, type UserProfile } from "@/data/quizData";
+import { calculateProfile, generateCriticalAlerts, userProfiles, type UserProfile } from "@/data/quizData";
 import { getRecommendedAIs, getPersonalizedRecommendationText } from "@/data/aiRecommendations";
 import { AlertTriangle, Award, MessageCircle, Download, Target, Bot, Sparkles } from "lucide-react";
 import { TestimonialsCarousel } from "./TestimonialsCarousel";
@@ -16,8 +16,8 @@ export default function ResultPage({ answers, totalScore, onRestart }: ResultPag
   const criticalAlerts = generateCriticalAlerts(answers, totalScore);
   
   // Determinar chave do perfil para recomendações
-  const profileKey = Object.keys(require("@/data/quizData").userProfiles).find(key => {
-    const p = require("@/data/quizData").userProfiles[key];
+  const profileKey = Object.keys(userProfiles).find(key => {
+    const p = userProfiles[key];
     return totalScore >= p.range[0] && totalScore <= p.range[1];
   }) || 'curioso';
   
