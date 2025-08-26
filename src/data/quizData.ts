@@ -132,67 +132,51 @@ export const quizQuestions: QuizQuestion[] = [
 ];
 
 export interface UserProfile {
-  range: [number, number];
+  scoreRange: [number, number];
   title: string;
   description: string;
-  mainAlert: string;
-  criticalAlerts: string[];
+  alert: string;
 }
 
 export const userProfiles: Record<string, UserProfile> = {
   curioso: {
-    range: [10, 20],
-    title: '☠️ CURIOSO – O Fim Está Próximo',
-    description: 'Sua empresa está à beira do colapso digital. Você acha a IA incrível, mas continua olhando de fora. Enquanto você assiste, o mercado avança sem você.',
-    mainAlert: 'APOCALIPSE IMINENTE: Sua empresa corre sério risco de se tornar irrelevante em pouco tempo.',
-    criticalAlerts: [
-      'Produtividade sendo drenada por tarefas manuais',
-      'Concorrentes já estão anos à frente',
-      'Sua empresa está rumo ao fim do mundo corporativo se nada mudar agora'
-    ]
+    scoreRange: [10, 18],
+    title: "Curioso em IA",
+    description: "\"Acho incrível o que a IA pode fazer, mas ainda não sei por onde começar.\" Você demonstra curiosidade genuína sobre IA e está no momento perfeito para dar os primeiros passos práticos. Sua curiosidade é o primeiro ingrediente do sucesso!",
+    alert: "💡 PRIMEIRO PASSO: Sua curiosidade é valiosa! Agora é hora de transformá-la em ação. Comece com ferramentas simples para sentir o poder da IA no seu dia a dia. Pequenos passos hoje se tornam grandes vantagens amanhã."
   },
-  iniciante: {
-    range: [21, 30],
-    title: '🔥 INICIANTE – Zona de Perigo',
-    description: 'Você começou a experimentar a IA, mas continua brincando com fogo. Implementações rasas não vão salvar sua empresa.',
-    mainAlert: 'ALERTA VERMELHO: Sua empresa já sente os tremores do apocalipse competitivo.',
-    criticalAlerts: [
-      'Uso pontual da IA não gera impacto real',
-      'Falta visão estratégica para sobreviver',
-      'Sua equipe não está preparada para o colapso que vem aí'
-    ]
+  experimentador: {
+    scoreRange: [19, 26],
+    title: "Experimentador em Evolução",
+    description: "\"Já testei algumas ferramentas, mas ainda estou longe de aplicar com profundidade.\" Você já superou a barreira inicial e está experimentando ativamente. Está no caminho certo - agora é hora de criar consistência e conexão com seus objetivos!",
+    alert: "🎯 ACELERE A CONSISTÊNCIA: Você já provou que consegue usar IA! O próximo passo é criar rotinas consistentes e conectar as ferramentas aos seus objetivos principais. A diferença está na aplicação frequente e direcionada."
   },
-  implementador: {
-    range: [31, 40],
-    title: '⚡ IMPLEMENTADOR – Sobrevivente em Risco',
-    description: 'Sua empresa já respira com ajuda da IA, mas ainda está vulnerável. O que você conquistou pode não durar se não acelerar agora.',
-    mainAlert: 'COLAPSO À VISTA: O mercado não perdoa quem anda devagar. “Bom” não salva ninguém do fim.',
-    criticalAlerts: [
-      'ROI real ainda não está sendo explorado ao máximo',
-      'Concorrentes podem ultrapassar e te engolir',
-      'As oportunidades de inovação estão sendo perdidas a cada mês'
-    ]
+  executor: {
+    scoreRange: [27, 34],
+    title: "Executor Prático",
+    description: "\"Consigo aplicar IA no meu dia a dia e vejo valor real nisso.\" Parabéns! Você está entre os profissionais que transformaram curiosidade em resultados práticos. Já vê o valor real e aplica com frequência - isso é uma conquista significativa!",
+    alert: "🚀 OTIMIZE E MENSURE: Você domina a aplicação prática! Agora é hora de otimizar processos, medir resultados específicos e expandir para áreas que ainda não explorou. Você tem potencial para muito mais."
+  },
+  integrador: {
+    scoreRange: [35, 42],
+    title: "Integrador Sistêmico",
+    description: "\"A IA já faz parte do meu fluxo e de parte da operação.\" Excepcional! Você não apenas usa IA, mas a integrou aos seus processos. Está entre os líderes que entendem que IA não é ferramenta isolada, mas parte fundamental da operação moderna.",
+    alert: "🏗️ EXPANDA ESTRATEGICAMENTE: Sua integração operacional é impressionante! O próximo nível é expandir para automações mais complexas, conectar sistemas e começar a pensar em como a IA pode redefinir seu modelo de negócio."
   },
   estrategista: {
-    range: [41, 50],
-    title: '👑 ESTRATEGISTA – À Beira do Trono ou da Queda',
-    description: 'Você está entre a elite que redesenha negócios com IA. Mas cuidado: até gigantes tombam quando acham que já venceram.',
-    mainAlert: 'JUÍZO FINAL: A estagnação é o inimigo silencioso. O próximo movimento define se você domina ou é dominado.',
-    criticalAlerts: [
-      'A evolução da IA é diária, e você pode ser superado',
-      'Novos players surgem preparados para te derrubar',
-      'Se não acelerar a execução, sua vantagem vira pó'
-    ]
+    scoreRange: [43, 50],
+    title: "Estrategista Transformador",
+    description: "\"Estou redesenhando o modelo de negócio com base no poder da IA.\" Você está no topo da evolução em IA! Não apenas aplica ferramentas, mas repensa estratégias e modelos inteiros. Você é um verdadeiro pioneiro da transformação digital.",
+    alert: "👑 LIDERANÇA CONTÍNUA: Você está liderando a revolução da IA! Mantenha-se à frente explorando novas fronteiras, compartilhando conhecimento e inovando constantemente. Sua visão estratégica é um diferencial competitivo raro."
   }
 };
 
 export function calculateProfile(totalScore: number): UserProfile {
-  for (const profile of Object.values(userProfiles)) {
-    if (totalScore >= profile.range[0] && totalScore <= profile.range[1]) {
-      return profile;
-    }
-  }
-  return userProfiles.curioso; // fallback
+  if (totalScore <= 18) return userProfiles.curioso;
+  if (totalScore <= 26) return userProfiles.experimentador;
+  if (totalScore <= 34) return userProfiles.executor;
+  if (totalScore <= 42) return userProfiles.integrador;
+  return userProfiles.estrategista;
 }
 
 export function generateCriticalAlerts(answers: number[], totalScore: number): string[] {

@@ -16,10 +16,15 @@ export default function ResultPage({ answers, totalScore, onRestart }: ResultPag
   const criticalAlerts = generateCriticalAlerts(answers, totalScore);
   
   // Determinar chave do perfil para recomendações
-  const profileKey = Object.keys(userProfiles).find(key => {
-    const p = userProfiles[key];
-    return totalScore >= p.range[0] && totalScore <= p.range[1];
-  }) || 'curioso';
+  const getProfileKey = (): string => {
+    if (totalScore <= 18) return 'curioso';
+    if (totalScore <= 26) return 'experimentador';
+    if (totalScore <= 34) return 'executor';
+    if (totalScore <= 42) return 'integrador';
+    return 'estrategista';
+  };
+  
+  const profileKey = getProfileKey();
   
   const recommendedAIs = getRecommendedAIs(answers, totalScore, profileKey);
   const recommendationText = getPersonalizedRecommendationText(profileKey);
@@ -93,7 +98,7 @@ export default function ResultPage({ answers, totalScore, onRestart }: ResultPag
               <AlertTriangle className="w-6 h-6 text-destructive mr-4 mt-1 flex-shrink-0" />
               <div>
                 <h4 className="font-blinker font-bold text-destructive mb-2">ALERTA PRINCIPAL</h4>
-                <p className="text-foreground">{profile.mainAlert}</p>
+                <p className="text-foreground">{profile.alert}</p>
               </div>
             </div>
           </div>
