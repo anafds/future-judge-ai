@@ -1,148 +1,103 @@
 export interface AITool {
   id: string;
   name: string;
-  category: 'Conversacional' | 'Pesquisa' | 'Criativo' | 'Produtividade' | 'Análise';
+  category: 'Produtividade Diária' | 'Análise e Pesquisa' | 'Automação Avançada' | 'Criação Visual' | 'Desenvolvimento';
   description: string;
+  practicalExample: string;
   bestFor: string[];
   targetProfile: ('curioso' | 'iniciante' | 'implementador' | 'estrategista')[];
   targetCategories: ('Produtividade' | 'Performance' | 'Inovação' | 'Liderança')[];
 }
 
 export const aiTools: AITool[] = [
-  // GPT Models
+  // Produtividade Diária
   {
-    id: 'gpt-4o',
-    name: 'GPT-4o',
-    category: 'Conversacional',
-    description: 'Indicado para conversas naturais e produtividade, com suporte multimodal (imagem, áudio e texto).',
-    bestFor: ['Redação profissional', 'Brainstorm de ideias', 'Análise de documentos', 'Comunicação com clientes'],
-    targetProfile: ['curioso', 'iniciante', 'implementador'],
+    id: 'chatgpt',
+    name: 'ChatGPT',
+    category: 'Produtividade Diária',
+    description: 'Use quando precisar de conversas naturais, produtividade e criatividade rápida. Ele entende texto, áudio e imagem.',
+    practicalExample: 'Você precisa preparar uma proposta de negócio de última hora? Peça ao ChatGPT para estruturar o texto, ajustar o tom e gerar até as versões finais de apresentação.',
+    bestFor: ['Redigir e-mails profissionais em segundos', 'Fazer brainstorm de campanhas de marketing', 'Analisar uma imagem ou gráfico e explicar em linguagem simples'],
+    targetProfile: ['curioso', 'iniciante', 'implementador', 'estrategista'],
     targetCategories: ['Produtividade', 'Liderança']
   },
-  {
-    id: 'gpt-4o-mini',
-    name: 'GPT-4o-mini',
-    category: 'Produtividade',
-    description: 'Ideal para quem busca velocidade e economia, ótimo para chatbots e aplicativos com muitas requisições.',
-    bestFor: ['Chatbots para atendimento', 'Automação de respostas', 'Processamento em massa', 'Aplicações básicas'],
-    targetProfile: ['curioso', 'iniciante'],
-    targetCategories: ['Produtividade', 'Performance']
-  },
-  {
-    id: 'gpt-o3',
-    name: 'GPT o3',
-    category: 'Análise',
-    description: 'Voltado para tarefas altamente complexas, como matemática, ciência e codificação avançada.',
-    bestFor: ['Análises técnicas profundas', 'Resolução de problemas complexos', 'Geração de relatórios técnicos', 'Pesquisa científica'],
-    targetProfile: ['implementador', 'estrategista'],
-    targetCategories: ['Performance', 'Inovação', 'Liderança']
-  },
-  {
-    id: 'gpt-o4-mini',
-    name: 'GPT o4-mini',
-    category: 'Produtividade',
-    description: 'Equilibra custo e velocidade para tarefas diretas como posts, relatórios e automações simples.',
-    bestFor: ['Posts para redes sociais', 'E-mails automáticos', 'Relatórios padronizados', 'Criação de conteúdo regular'],
-    targetProfile: ['iniciante', 'implementador'],
-    targetCategories: ['Produtividade', 'Performance']
-  },
 
-  // Claude Models
+  // Análise e Pesquisa
   {
-    id: 'claude-opus-4',
-    name: 'Claude Opus 4',
-    category: 'Análise',
-    description: 'Voltado para leitura longa, escrita técnica e tarefas complexas, ideal para relatórios e análises.',
-    bestFor: ['Relatórios extensos', 'Textos jurídicos', 'Análise de contratos', 'Documentação técnica'],
-    targetProfile: ['implementador', 'estrategista'],
+    id: 'claude',
+    name: 'Claude',
+    category: 'Análise e Pesquisa',
+    description: 'É o modelo mais criativo e analítico. Ideal para quem trabalha com informação complexa.',
+    practicalExample: 'Você tem 50 páginas de pesquisa de mercado? O Claude consegue transformar isso em um relatório enxuto com os principais insights.',
+    bestFor: ['Criar dashboards inteligentes com base em dados brutos', 'Escrever relatórios longos ou jurídicos com clareza', 'Organizar documentos técnicos em resumos estratégicos'],
+    targetProfile: ['curioso', 'iniciante', 'implementador', 'estrategista'],
     targetCategories: ['Performance', 'Liderança']
   },
   {
-    id: 'claude-sonnet-4',
-    name: 'Claude Sonnet 4',
-    category: 'Análise',
-    description: 'Modelo híbrido com grande contexto (200K), útil para análises de alto volume de dados.',
-    bestFor: ['Análise de grandes volumes de dados', 'Revisão de documentos extensos', 'Pesquisa de mercado', 'Due diligence'],
-    targetProfile: ['implementador', 'estrategista'],
-    targetCategories: ['Performance', 'Inovação', 'Liderança']
+    id: 'perplexity',
+    name: 'Perplexity',
+    category: 'Análise e Pesquisa',
+    description: 'O seu Google turbinado por IA. Ótimo para pesquisa de mercado, benchmark e análises profundas.',
+    practicalExample: 'Precisa entender como uma empresa do seu setor está se posicionando? O Perplexity entrega em minutos uma visão completa com dados e links originais.',
+    bestFor: ['Usar o DeepSearch para estudar concorrentes', 'Comparar diferentes fornecedores e tecnologias', 'Criar relatórios com referências de fontes confiáveis'],
+    targetProfile: ['iniciante', 'implementador', 'estrategista'],
+    targetCategories: ['Inovação', 'Liderança']
   },
+
+  // Automação Avançada
   {
-    id: 'claude-haiku-35',
-    name: 'Claude Haiku 3.5',
-    category: 'Produtividade',
-    description: 'Mais ágil, indicado para respostas rápidas, FAQs e atendimento automático.',
-    bestFor: ['Atendimento ao cliente', 'FAQs automáticos', 'Respostas rápidas', 'Suporte básico'],
-    targetProfile: ['curioso', 'iniciante', 'implementador'],
+    id: 'manus',
+    name: 'Manus',
+    category: 'Automação Avançada',
+    description: 'Uma IA que vai além do chat: ela pode controlar seu computador.',
+    practicalExample: 'Você precisa montar 10 apresentações diferentes em um dia? A Manus cria os slides, formata e organiza sem que você precise clicar em nada.',
+    bestFor: ['Gerar e montar apresentações no PowerPoint automaticamente', 'Abrir aplicativos, executar tarefas repetitivas e automatizar fluxos inteiros', 'Ser um "assistente digital" que realmente age'],
+    targetProfile: ['curioso', 'implementador', 'estrategista'],
     targetCategories: ['Produtividade', 'Performance']
   },
 
-  // Perplexity
+  // Criação Visual
   {
-    id: 'perplexity-pro',
-    name: 'Perplexity Pro Search',
-    category: 'Pesquisa',
-    description: 'Realiza buscas profundas e iterativas na web com fontes confiáveis, permitindo escolher o modelo.',
-    bestFor: ['Pesquisa de mercado', 'Inteligência competitiva', 'Tendências do setor', 'Verificação de informações'],
+    id: 'freepik',
+    name: 'Freepik',
+    category: 'Criação Visual',
+    description: 'Especializada em design com IA. Serve para criar tanto imagens quanto vídeos.',
+    practicalExample: 'Quer lançar um produto novo e não tem designer disponível? O Freepik gera o logotipo, banners e até vídeos de divulgação.',
+    bestFor: ['Gerar logotipos, artes realistas ou ilustrações criativas', 'Criar vídeos curtos com base em roteiros de texto', 'Otimizar a identidade visual de uma marca'],
+    targetProfile: ['curioso', 'iniciante', 'implementador', 'estrategista'],
+    targetCategories: ['Inovação', 'Performance']
+  },
+  {
+    id: 'heygen',
+    name: 'HeyGen',
+    category: 'Criação Visual',
+    description: 'Transforma imagens em vídeos com realismo impressionante.',
+    practicalExample: 'Precisa de um vídeo em inglês com sotaque perfeito, mas não fala o idioma? O HeyGen cria sua versão digital apresentando a mensagem com naturalidade.',
+    bestFor: ['Criar avatares que apresentam sua empresa', 'Transformar uma foto em um vídeo institucional', 'Gerar conteúdos dinâmicos sem precisar de câmera ou estúdio'],
     targetProfile: ['implementador', 'estrategista'],
     targetCategories: ['Inovação', 'Liderança']
   },
-  {
-    id: 'perplexity-deep',
-    name: 'Perplexity Deep Research',
-    category: 'Pesquisa',
-    description: 'Faz múltiplas buscas, lê documentos e gera relatórios completos em 2-4 minutos.',
-    bestFor: ['Relatórios de mercado', 'Análise de concorrência', 'Research estratégico', 'Due diligence rápida'],
-    targetProfile: ['estrategista'],
-    targetCategories: ['Performance', 'Inovação', 'Liderança']
-  },
 
-  // Gemini Models
+  // Desenvolvimento
   {
-    id: 'gemini-25-flash',
-    name: 'Gemini 2.5 Flash',
-    category: 'Produtividade',
-    description: 'Focado em respostas em tempo real e produtividade rápida, integrado ao Google.',
-    bestFor: ['Produtividade no Gmail', 'Google Docs automatizado', 'Respostas rápidas', 'Integração com Google Workspace'],
-    targetProfile: ['iniciante', 'implementador'],
-    targetCategories: ['Produtividade']
-  },
-  {
-    id: 'gemini-25-pro',
-    name: 'Gemini 2.5 Pro',
-    category: 'Análise',
-    description: 'Análise de dados complexos, documentos extensos, vídeos e áudios com até 1 milhão de tokens.',
-    bestFor: ['Análise de relatórios financeiros', 'Processamento de vídeos', 'Documentos de centenas de páginas', 'Códigos complexos'],
-    targetProfile: ['implementador', 'estrategista'],
-    targetCategories: ['Performance', 'Inovação', 'Liderança']
-  },
-
-  // Image Generation
-  {
-    id: 'imagen-4',
-    name: 'Imagen 4 (Google)',
-    category: 'Criativo',
-    description: 'Alta qualidade visual para criar imagens realistas e logotipos profissionais.',
-    bestFor: ['Criação de logotipos', 'Imagens para marketing', 'Materiais visuais profissionais', 'Identidade visual'],
+    id: 'lovable',
+    name: 'Lovable',
+    category: 'Desenvolvimento',
+    description: 'Ferramenta para criar softwares e sites sem precisar ser programador.',
+    practicalExample: 'Quer testar uma nova ideia de negócio em uma semana? No Lovable você cria o site, conecta ao banco de dados e já coloca no ar.',
+    bestFor: ['Construir landing pages de captura de leads', 'Desenvolver sistemas internos para resolver problemas da sua empresa', 'Criar aplicativos sob medida para clientes ou projetos pessoais'],
     targetProfile: ['iniciante', 'implementador', 'estrategista'],
     targetCategories: ['Inovação', 'Performance']
   },
   {
-    id: 'gpt-4o-imagem',
-    name: 'GPT-4o Imagem',
-    category: 'Criativo',
-    description: 'Criação visual integrada ao ChatGPT, facilitando produções rápidas e simples.',
-    bestFor: ['Criações visuais rápidas', 'Protótipos visuais', 'Ideias de design', 'Mockups simples'],
-    targetProfile: ['curioso', 'iniciante', 'implementador'],
-    targetCategories: ['Inovação', 'Produtividade']
-  },
-  {
-    id: 'flux-kontext',
-    name: 'Flux (Kontext)',
-    category: 'Criativo',
-    description: 'Voltado para design emocional e criativo, ideal para imagens ultrarrealistas.',
-    bestFor: ['Imagens ultrarrealistas', 'Design emocional', 'Melhoria de fotos', 'Arte digital avançada'],
-    targetProfile: ['implementador', 'estrategista'],
-    targetCategories: ['Inovação']
+    id: 'replit',
+    name: 'Replit',
+    category: 'Desenvolvimento',
+    description: 'Ferramenta para criar softwares e sites sem precisar ser programador.',
+    practicalExample: 'Quer testar uma nova ideia de negócio em uma semana? No Replit você cria o site, conecta ao banco de dados e já coloca no ar.',
+    bestFor: ['Construir landing pages de captura de leads', 'Desenvolver sistemas internos para resolver problemas da sua empresa', 'Criar aplicativos sob medida para clientes ou projetos pessoais'],
+    targetProfile: ['iniciante', 'implementador', 'estrategista'],
+    targetCategories: ['Inovação', 'Performance']
   }
 ];
 
@@ -157,47 +112,86 @@ export function getRecommendedAIs(
     .filter(item => item.score <= 2)
     .map(item => item.category);
 
-  // Se não há problemas críticos, focar em otimização avançada
-  const targetCategories = lowScoreCategories.length > 0 
-    ? lowScoreCategories 
-    : ['Performance', 'Inovação', 'Liderança'];
+  // Recomendações específicas por perfil
+  let recommendedTools: AITool[] = [];
 
-  // Filtrar IAs relevantes para o perfil e categorias problemáticas
-  const relevantAIs = aiTools.filter(ai => 
-    ai.targetProfile.includes(profileKey as any) ||
-    ai.targetCategories.some(cat => targetCategories.includes(cat))
-  );
+  switch (profileKey) {
+    case 'curioso':
+      // Para curiosos: ChatGPT, Claude, Manus, Freepik (ferramentas acessíveis)
+      recommendedTools = aiTools.filter(ai => 
+        ['chatgpt', 'claude', 'manus', 'freepik'].includes(ai.id)
+      );
+      break;
+      
+    case 'iniciante':
+      // Para iniciantes: ferramentas práticas para aplicar
+      recommendedTools = aiTools.filter(ai => 
+        ['chatgpt', 'perplexity', 'freepik', 'lovable'].includes(ai.id)
+      );
+      break;
+      
+    case 'implementador':
+      // Para implementadores: baseado nos problemas identificados
+      if (lowScoreCategories.includes('Produtividade')) {
+        recommendedTools.push(...aiTools.filter(ai => ['chatgpt', 'manus'].includes(ai.id)));
+      }
+      if (lowScoreCategories.includes('Performance')) {
+        recommendedTools.push(...aiTools.filter(ai => ['claude', 'perplexity'].includes(ai.id)));
+      }
+      if (lowScoreCategories.includes('Inovação')) {
+        recommendedTools.push(...aiTools.filter(ai => ['freepik', 'heygen', 'lovable'].includes(ai.id)));
+      }
+      if (lowScoreCategories.includes('Liderança')) {
+        recommendedTools.push(...aiTools.filter(ai => ['perplexity', 'claude'].includes(ai.id)));
+      }
+      
+      // Se não há problemas críticos, mostrar ferramentas avançadas
+      if (recommendedTools.length === 0) {
+        recommendedTools = aiTools.filter(ai => 
+          ['claude', 'perplexity', 'manus', 'heygen'].includes(ai.id)
+        );
+      }
+      break;
+      
+    case 'estrategista':
+      // Para estrategistas: ferramentas para liderança
+      recommendedTools = aiTools.filter(ai => 
+        ['perplexity', 'claude', 'heygen', 'lovable'].includes(ai.id)
+      );
+      break;
+      
+    default:
+      // Fallback para curioso
+      recommendedTools = aiTools.filter(ai => 
+        ['chatgpt', 'claude', 'manus', 'freepik'].includes(ai.id)
+      );
+  }
 
-  // Priorizar por relevância e diversidade
-  const prioritizedAIs = relevantAIs
-    .sort((a, b) => {
-      // Priorizar IAs que atendem múltiplas categorias problemáticas
-      const aRelevance = a.targetCategories.filter(cat => targetCategories.includes(cat)).length;
-      const bRelevance = b.targetCategories.filter(cat => targetCategories.includes(cat)).length;
-      
-      if (aRelevance !== bRelevance) return bRelevance - aRelevance;
-      
-      // Priorizar IAs adequadas ao perfil
-      const aProfileMatch = a.targetProfile.includes(profileKey as any) ? 1 : 0;
-      const bProfileMatch = b.targetProfile.includes(profileKey as any) ? 1 : 0;
-      
-      return bProfileMatch - aProfileMatch;
-    });
-
-  // Garantir diversidade de categorias (máximo 1 por categoria, exceto se muito relevante)
-  const diverseAIs: AITool[] = [];
+  // Remover duplicatas e garantir diversidade
+  const uniqueTools = Array.from(new Map(recommendedTools.map(tool => [tool.id, tool])).values());
+  
+  // Garantir diversidade de categorias
+  const diverseTools: AITool[] = [];
   const usedCategories = new Set<string>();
   
-  for (const ai of prioritizedAIs) {
-    if (diverseAIs.length >= 4) break;
+  for (const tool of uniqueTools) {
+    if (diverseTools.length >= 4) break;
     
-    if (!usedCategories.has(ai.category) || diverseAIs.length < 2) {
-      diverseAIs.push(ai);
-      usedCategories.add(ai.category);
+    if (!usedCategories.has(tool.category) || diverseTools.length < 2) {
+      diverseTools.push(tool);
+      usedCategories.add(tool.category);
+    }
+  }
+  
+  // Se ainda não temos 4, completar com as restantes
+  for (const tool of uniqueTools) {
+    if (diverseTools.length >= 4) break;
+    if (!diverseTools.some(t => t.id === tool.id)) {
+      diverseTools.push(tool);
     }
   }
 
-  return diverseAIs.slice(0, 4);
+  return diverseTools.slice(0, 4);
 }
 
 function getQuestionCategory(questionIndex: number): string {
@@ -213,7 +207,7 @@ function getQuestionCategory(questionIndex: number): string {
 
 export function getPersonalizedRecommendationText(profileKey: string): string {
   const messages = {
-    curioso: "Com base no seu perfil, estas IAs podem ajudar você a dar os primeiros passos práticos:",
+    curioso: "Com base no seu perfil, estas ferramentas práticas podem ajudar você a dar os primeiros passos com IA:",
     iniciante: "Para acelerar sua implementação de IA, recomendamos estas ferramentas específicas:",
     implementador: "Para otimizar seus resultados atuais, estas IAs podem levar sua empresa ao próximo nível:",
     estrategista: "Para manter sua liderança e explorar novas fronteiras, considere estas ferramentas avançadas:"

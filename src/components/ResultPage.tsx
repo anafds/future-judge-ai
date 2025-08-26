@@ -144,9 +144,16 @@ export default function ResultPage({ answers, totalScore, onRestart }: ResultPag
                     </div>
                   </div>
                   
-                  <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
+                  <p className="text-sm text-muted-foreground mb-3 leading-relaxed">
                     {ai.description}
                   </p>
+                  
+                  <div className="bg-primary/5 rounded-lg p-3 mb-4 border border-primary/10">
+                    <p className="text-xs font-semibold text-primary mb-1">💡 Exemplo prático:</p>
+                    <p className="text-xs text-muted-foreground leading-relaxed">
+                      {ai.practicalExample}
+                    </p>
+                  </div>
                   
                   <div className="space-y-2">
                     <p className="text-xs font-semibold text-foreground mb-2">Ideal para:</p>
