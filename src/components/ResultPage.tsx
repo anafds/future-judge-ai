@@ -390,7 +390,7 @@ export default function ResultPage({ answers, totalScore, onRestart }: ResultPag
       </div>
 
       {/* Popup de Oferta Especial */}
-      <Dialog open={showOfferPopup} onOpenChange={handleClosePopup}>
+      <Dialog open={showOfferPopup} onOpenChange={() => {}}>
         <DialogContent className="max-w-lg mx-4 backdrop-blur-sm bg-gradient-to-br from-background/95 to-background/90 border-2 border-primary/30 shadow-2xl">
           <DialogHeader className="text-center space-y-4">
             <div className="mx-auto w-16 h-16 bg-gradient-primary rounded-full flex items-center justify-center animate-pulse-glow">
@@ -424,13 +424,6 @@ export default function ResultPage({ answers, totalScore, onRestart }: ResultPag
               <Sparkles className="w-5 h-5 mr-2" />
               QUERO VER A OFERTA ESPECIAL
             </Button>
-            
-            <button 
-              onClick={handleClosePopup}
-              className="w-full text-sm text-muted-foreground hover:text-foreground transition-colors"
-            >
-              Talvez mais tarde
-            </button>
           </div>
           
           <div className="text-center mt-4 p-3 bg-primary/10 rounded-lg border border-primary/20">
