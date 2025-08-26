@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button-custom";
 import { calculateProfile, generateCriticalAlerts, type UserProfile } from "@/data/quizData";
-import { AlertTriangle, Award, MessageCircle, Download, Target } from "lucide-react";
+import { getRecommendedAIs, getPersonalizedRecommendationText } from "@/data/aiRecommendations";
+import { AlertTriangle, Award, MessageCircle, Download, Target, Bot, Sparkles } from "lucide-react";
 import { TestimonialsCarousel } from "./TestimonialsCarousel";
 import { CountdownTimer } from "./CountdownTimer";
 
@@ -13,6 +14,15 @@ interface ResultPageProps {
 export default function ResultPage({ answers, totalScore, onRestart }: ResultPageProps) {
   const profile: UserProfile = calculateProfile(totalScore);
   const criticalAlerts = generateCriticalAlerts(answers, totalScore);
+  
+  // Determinar chave do perfil para recomendações
+  const profileKey = Object.keys(require("@/data/quizData").userProfiles).find(key => {
+    const p = require("@/data/quizData").userProfiles[key];
+    return totalScore >= p.range[0] && totalScore <= p.range[1];
+  }) || 'curioso';
+  
+  const recommendedAIs = getRecommendedAIs(answers, totalScore, profileKey);
+  const recommendationText = getPersonalizedRecommendationText(profileKey);
 
   const handleWhatsAppClick = () => {
     const message = encodeURIComponent(
@@ -102,6 +112,56 @@ export default function ResultPage({ answers, totalScore, onRestart }: ResultPag
                       <span className="text-xs font-bold text-white">{index + 1}</span>
                     </div>
                     <p className="text-foreground">{alert}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* AI Recommendations */}
+          <div className="mb-8 animate-fade-in-up">
+            <h4 className="font-blinker font-bold text-xl mb-4 flex items-center">
+              <Bot className="w-5 h-5 text-primary mr-2" />
+              IAS RECOMENDADAS PARA VOCÊ
+            </h4>
+            <p className="text-muted-foreground mb-6">
+              {recommendationText}
+            </p>
+            <div className="grid md:grid-cols-2 gap-4">
+              {recommendedAIs.map((ai, index) => (
+                <div key={ai.id} className="glass-card p-6 hover-lift">
+                  <div className="flex items-start mb-4">
+                    <div className="w-10 h-10 bg-gradient-primary rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
+                      <Sparkles className="w-5 h-5 text-primary-foreground" />
+                    </div>
+                    <div>
+                      <h5 className="font-blinker font-bold text-lg text-foreground mb-1">
+                        {ai.name}
+                      </h5>
+                      <span className="text-xs bg-primary/10 text-primary px-2 py-1 rounded-full">
+                        {ai.category}
+                      </span>
+                    </div>
+                  </div>
+                  
+                  <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
+                    {ai.description}
+                  </p>
+                  
+                  <div className="space-y-2">
+                    <p className="text-xs font-semibold text-foreground mb-2">Ideal para:</p>
+                    <div className="flex flex-wrap gap-1">
+                      {ai.bestFor.slice(0, 2).map((use, useIndex) => (
+                        <span key={useIndex} className="text-xs bg-background/50 text-muted-foreground px-2 py-1 rounded border border-border">
+                          {use}
+                        </span>
+                      ))}
+                      {ai.bestFor.length > 2 && (
+                        <span className="text-xs text-primary">
+                          +{ai.bestFor.length - 2} mais
+                        </span>
+                      )}
+                    </div>
                   </div>
                 </div>
               ))}
