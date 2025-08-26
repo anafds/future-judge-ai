@@ -411,9 +411,7 @@ export default function ResultPage({ answers, totalScore, onRestart }: ResultPag
               }
               <br />
               <br />
-              <span className="text-primary font-semibold">Curso Online IA na Prática por apenas R$ 97</span>
-              <br />
-              <span className="text-sm text-muted-foreground">(valor normal: R$ 997)</span>
+              <span className="text-primary font-semibold">Acesso exclusivo liberado!</span>
             </DialogDescription>
           </DialogHeader>
           
