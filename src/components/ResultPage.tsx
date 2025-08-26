@@ -1,9 +1,11 @@
 import { Button } from "@/components/ui/button-custom";
 import { calculateProfile, generateCriticalAlerts, userProfiles, type UserProfile } from "@/data/quizData";
 import { getRecommendedAIs, getPersonalizedRecommendationText } from "@/data/aiRecommendations";
-import { AlertTriangle, Award, MessageCircle, Download, Target, Bot, Sparkles } from "lucide-react";
+import { AlertTriangle, Award, MessageCircle, Download, Target, Bot, Sparkles, Gift } from "lucide-react";
 import { TestimonialsCarousel } from "./TestimonialsCarousel";
 import { CountdownTimer } from "./CountdownTimer";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { useRef, useEffect, useState } from "react";
 
 interface ResultPageProps {
   answers: number[];
@@ -14,6 +16,16 @@ interface ResultPageProps {
 export default function ResultPage({ answers, totalScore, onRestart }: ResultPageProps) {
   const profile: UserProfile = calculateProfile(totalScore);
   const criticalAlerts = generateCriticalAlerts(answers, totalScore);
+  
+  // Estados para controlar o popup
+  const [showOfferPopup, setShowOfferPopup] = useState(false);
+  const [hasSeenOffer, setHasSeenOffer] = useState(false);
+  const [isScrollLocked, setIsScrollLocked] = useState(false);
+  const [triggerType, setTriggerType] = useState<'timer' | 'scroll' | null>(null);
+  
+  // Refs
+  const aiRecommendationsRef = useRef<HTMLDivElement>(null);
+  const offerSectionRef = useRef<HTMLDivElement>(null);
   
   // Determinar chave do perfil para recomendações
   const getProfileKey = (): string => {
@@ -35,6 +47,90 @@ export default function ResultPage({ answers, totalScore, onRestart }: ResultPag
     );
     window.open(`https://wa.me/5531991249442?text=${message}`, '_blank');
   };
+
+  // Função para controlar scroll lock
+  const toggleScrollLock = (lock: boolean) => {
+    document.body.style.overflow = lock ? 'hidden' : '';
+    setIsScrollLocked(lock);
+  };
+
+  // Função para mostrar popup
+  const showPopup = (type: 'timer' | 'scroll') => {
+    if (hasSeenOffer) return;
+    setTriggerType(type);
+    setShowOfferPopup(true);
+    if (type === 'scroll') {
+      toggleScrollLock(true);
+    }
+  };
+
+  // Função para scroll automático para oferta
+  const scrollToOffer = () => {
+    offerSectionRef.current?.scrollIntoView({ 
+      behavior: 'smooth',
+      block: 'start'
+    });
+    
+    // Adicionar efeito visual de destaque
+    setTimeout(() => {
+      if (offerSectionRef.current) {
+        offerSectionRef.current.style.animation = 'pulse 2s ease-in-out 3';
+      }
+    }, 800);
+  };
+
+  // Handler para CTA do popup
+  const handleOfferCTA = () => {
+    setShowOfferPopup(false);
+    setHasSeenOffer(true);
+    toggleScrollLock(false);
+    setTimeout(() => {
+      scrollToOffer();
+    }, 300);
+  };
+
+  // Handler para fechar popup
+  const handleClosePopup = () => {
+    setShowOfferPopup(false);
+    setHasSeenOffer(true);
+    toggleScrollLock(false);
+  };
+
+  // Effect para gatilho por tempo (10 segundos)
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      showPopup('timer');
+    }, 10000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Effect para gatilho por scroll
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !hasSeenOffer && !showOfferPopup) {
+            showPopup('scroll');
+          }
+        });
+      },
+      {
+        threshold: 0.3,
+        rootMargin: '0px 0px -20% 0px'
+      }
+    );
+
+    if (aiRecommendationsRef.current) {
+      observer.observe(aiRecommendationsRef.current);
+    }
+
+    return () => {
+      if (aiRecommendationsRef.current) {
+        observer.unobserve(aiRecommendationsRef.current);
+      }
+    };
+  }, [hasSeenOffer, showOfferPopup]);
 
   const getScoreColor = (score: number) => {
     if (score >= 41) return 'text-green-400';
@@ -124,7 +220,7 @@ export default function ResultPage({ answers, totalScore, onRestart }: ResultPag
           </div>
 
           {/* AI Recommendations */}
-          <div className="mb-8 animate-fade-in-up">
+          <div ref={aiRecommendationsRef} className="mb-8 animate-fade-in-up">
             <h4 className="font-blinker font-bold text-xl mb-4 flex items-center">
               <Bot className="w-5 h-5 text-primary mr-2" />
               IAS RECOMENDADAS PARA VOCÊ
@@ -176,7 +272,7 @@ export default function ResultPage({ answers, totalScore, onRestart }: ResultPag
           </div>
 
           {/* Exclusive Offer Section */}
-          <div className="text-center mb-8 animate-fade-in-up">
+          <div ref={offerSectionRef} className="text-center mb-8 animate-fade-in-up">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-blinker font-bold text-gradient mb-6">
               Você acabou de desbloquear uma oferta exclusiva
             </h2>
@@ -292,6 +388,60 @@ export default function ResultPage({ answers, totalScore, onRestart }: ResultPag
 
         </div>
       </div>
+
+      {/* Popup de Oferta Especial */}
+      <Dialog open={showOfferPopup} onOpenChange={handleClosePopup}>
+        <DialogContent className="max-w-lg mx-4 backdrop-blur-sm bg-gradient-to-br from-background/95 to-background/90 border-2 border-primary/30 shadow-2xl">
+          <DialogHeader className="text-center space-y-4">
+            <div className="mx-auto w-16 h-16 bg-gradient-primary rounded-full flex items-center justify-center animate-pulse-glow">
+              <Gift className="w-8 h-8 text-primary-foreground" />
+            </div>
+            
+            <DialogTitle className="text-2xl md:text-3xl font-blinker font-bold text-gradient">
+              🎉 PARABÉNS!
+            </DialogTitle>
+            
+            <DialogDescription className="text-base text-foreground leading-relaxed">
+              <strong className="text-primary">Você desbloqueou uma oferta especial!</strong>
+              <br />
+              <br />
+              {triggerType === 'timer' 
+                ? 'Por estar aqui há alguns minutos, você ganhou acesso à nossa oferta exclusiva.'
+                : 'Por chegar até as recomendações de IA, você mostrou real interesse em evoluir.'
+              }
+              <br />
+              <br />
+              <span className="text-primary font-semibold">Curso Online IA na Prática por apenas R$ 97</span>
+              <br />
+              <span className="text-sm text-muted-foreground">(valor normal: R$ 997)</span>
+            </DialogDescription>
+          </DialogHeader>
+          
+          <div className="space-y-4 mt-6">
+            <Button 
+              onClick={handleOfferCTA}
+              className="w-full animate-pulse-glow"
+              size="lg"
+            >
+              <Sparkles className="w-5 h-5 mr-2" />
+              QUERO VER A OFERTA ESPECIAL
+            </Button>
+            
+            <button 
+              onClick={handleClosePopup}
+              className="w-full text-sm text-muted-foreground hover:text-foreground transition-colors"
+            >
+              Talvez mais tarde
+            </button>
+          </div>
+          
+          <div className="text-center mt-4 p-3 bg-primary/10 rounded-lg border border-primary/20">
+            <p className="text-xs text-primary font-semibold">
+              ⚡ Oferta válida apenas hoje • 90% de desconto
+            </p>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
